@@ -23,7 +23,25 @@ public:
         
         if(sum&1) return false;
         int t = sum/2;
-        vector<vector<int>> dp(n,vector<int>(t+1,-1));
-        return find(n-1,sum/2,nums,dp);
+        vector<vector<int>> dp(n,vector<int>(t+1,0));
+
+        for(int i=0; i<=t; i++){
+            if(i == nums[0]){
+                dp[0][i] = true;
+            }
+        }
+
+        for(int i=1; i<n; i++){
+            for(int j=0; j<=t; j++){
+                bool tk = false;
+                if(j >= nums[i]){
+                    tk = dp[i-1][j-nums[i]];
+                }
+                bool ntk = dp[i-1][j];
+                dp[i][j] = (tk || ntk);
+            }
+        }
+        return dp[n-1][t];
+        //return find(n-1,sum/2,nums,dp);
     }
 };
