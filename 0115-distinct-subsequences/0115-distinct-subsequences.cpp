@@ -15,21 +15,19 @@ public:
     int numDistinct(string s, string t) {
         int ns = s.size();
         int nt = t.size();
-        vector<long long> prev(nt+1,0);
         vector<long long> curr(nt+1,0);
+        curr[0] = 1;
         long long tk = 0;
         for(int i=1; i<=ns; i++){
-            prev[0] = 1;
-            for(int j=1; j<=nt; j++){
+            for(int j=nt; j>0; j--){
                 tk = 0;
                 if(s[i-1] == t[j-1]){
-                    tk = prev[j-1];
+                    tk = curr[j-1];
                 }
-                curr[j] = tk + prev[j];
+                curr[j] = (tk + curr[j])%INT_MAX;
             }
-            prev = curr;
         }
-        return (int)prev[nt];
+        return curr[nt];
         //return find(ns,nt,s,t,dp);
     }
 };
