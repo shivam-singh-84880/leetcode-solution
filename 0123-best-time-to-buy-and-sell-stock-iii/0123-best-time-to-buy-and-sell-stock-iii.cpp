@@ -19,7 +19,7 @@ public:
         vector<int> curr(5,0);
 
         for(int ind=n-1; ind>=0; ind--){
-            for(int trx=3; trx>=0; trx--){
+            for(int trx=0; trx<=3; trx++){
                 if(trx % 2 == 0){
                     curr[trx] = max(-prices[ind] + next[trx+1], next[trx]);
                 }
