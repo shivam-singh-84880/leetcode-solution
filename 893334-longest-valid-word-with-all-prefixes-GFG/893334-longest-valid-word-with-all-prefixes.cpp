@@ -1,26 +1,18 @@
 class Node{
 public:
-    bool data;
-    Node* next[26];
-    
-    Node(){
-        for(int i=0; i<26; i++){
-            next[i] = NULL;
-        }
-        data = false;
-    }
+    unordered_map<char, Node*> next;
+    bool data = false;
     
     void insert(string& word, Node*& root){
         Node* temp = root;
             for(auto& ch : word){
-                int idx = ch - 'a';
-                if(!temp->next[idx]){
+                if(!temp->next[ch]){
                     Node* tnode = new Node;
-                    temp->next[idx] = tnode;
-                    temp = temp->next[idx];
+                    temp->next[ch] = tnode;
+                    temp = temp->next[ch];
                 }
                 else{
-                    temp = temp->next[idx];
+                    temp = temp->next[ch];
                 }
             }
             temp->data = true;
@@ -31,9 +23,8 @@ public:
         int len = 0;
             Node* temp = root;
             for(auto& ch : word){
-                int idx = ch - 'a';
-                if(temp->next[idx]){
-                    temp = temp->next[idx];
+                if(temp->next[ch]){
+                    temp = temp->next[ch];
                     if(temp->data){
                         len++;
                     }
