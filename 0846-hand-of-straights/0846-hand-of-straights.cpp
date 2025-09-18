@@ -15,18 +15,20 @@ public:
             int val = pq.top();
             pq.pop();
             if(mp[val] > 0){
+                int cnt = mp[val];
                 for(int i=0; i<groupSize; i++){
                     if(mp[val+i]>0){
-                        mp[val+i]--;
+                        if(mp[val+i] < cnt)return false;
+                        mp[val+i] -= cnt;
                     }
                     else{
                         return false;
                     }
                 }
             }
-            if(mp[val] > 0){
-                pq.push(val);
-            }
+            // if(mp[val] > 0){
+            //     pq.push(val);
+            // }
         }
         return true;
     }
