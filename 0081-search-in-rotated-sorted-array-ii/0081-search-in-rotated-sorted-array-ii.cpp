@@ -5,7 +5,7 @@ public:
         while(s<e){
             mid = (s+e)/2;
             if(nums[mid]==nums[e]){
-                if(e>0 && nums[e-1]>nums[e])return e;
+                if(e>0 && nums[e-1]>nums[e])return e; //[1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1]
                 e = e-1;
             } 
             else if(nums[mid] > nums[e]){
