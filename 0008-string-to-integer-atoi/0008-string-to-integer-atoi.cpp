@@ -17,19 +17,11 @@ public:
 
         if(i>=n)return 0;
         long ans = 0;
-        while(i<s.length())
-        {
-            if(s[i]>='0' && s[i]<='9')
-            {
-                ans=ans*10+(s[i]-'0');
-                if(ans>INT_MAX && sign==-1)
-                    return INT_MIN;
-                else if(ans>INT_MAX && sign==1)
-                    return INT_MAX;
-                i++;
-            }
-            else
-                return ans*sign;
+        while(i<n && s[i]>='0' && s[i]<='9'){
+            ans = ans*10 + (s[i]-'0');
+            if(sign*ans >= INT_MAX)return INT_MAX;
+            if(sign*ans <= INT_MIN)return INT_MIN;
+            i++;
         }
         return (ans*sign);
     }
