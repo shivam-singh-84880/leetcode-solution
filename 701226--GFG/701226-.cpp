@@ -29,20 +29,24 @@ class Solution {
         return cnt;
     }
     
-    int merge(int s, int e, vector<int>& arr){
-        int cnt=0;
-        if(s >= e)return cnt;
+    void merge(int s, int e, vector<int>& arr, int& cnt){
+        // int cnt=0;
+        if(s >= e)return;
         
         int mid = (s+e)/2;
-        cnt += merge(s,mid,arr);
-        cnt += merge(mid+1,e,arr);
+        merge(s,mid,arr,cnt);
+        merge(mid+1,e,arr,cnt);
         cnt += mergeSort(s,mid+1,e,arr);
         
-        return cnt;
+        // return cnt;
     }
     
     int inversionCount(vector<int> &arr) {
        int n = arr.size();
-       return merge(0,n-1,arr);
+       int cnt=0;
+       merge(0,n-1,arr,cnt);
+       return cnt;
     }
 };
+
+
