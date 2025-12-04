@@ -8,7 +8,7 @@ public:
     };
     int countTrapezoids(vector<vector<int>>& p) {
         unordered_map<float,vector<float>> ypnt;
-        unordered_map<pair<int,int>,vector<float>,PairHash> mid;
+        unordered_map<int,vector<float>> mid;
         for(int i=0; i<p.size(); i++){
             int x1 = p[i][0];
             int y1 = p[i][1]; 
@@ -22,7 +22,9 @@ public:
 
                 float ypt;
                 float slope;
-                pair<int,int> m = {x1+x2,y1+y2};
+                // pair<int,int> m = {x1+x2,y1+y2};
+
+                int midkey = (x1+x2)*10000 + (y1+y2); // to create unique key
 
                 if(dx != 0){
                     slope = (float)dy/dx;
@@ -33,7 +35,7 @@ public:
                     ypt = x1;
                 }
                 ypnt[slope].push_back(ypt);
-                mid[m].push_back(slope);
+                mid[midkey].push_back(slope);
             }
         }
 
