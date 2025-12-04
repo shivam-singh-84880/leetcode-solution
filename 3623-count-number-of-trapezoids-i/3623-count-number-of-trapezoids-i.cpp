@@ -6,16 +6,13 @@ public:
         for(auto& pt : points){
             mp[pt[1]]++;
         }
+        long long ans=0;
+        long long phline=0;
         for(auto& [pt,val] : mp){
-            long long sum = val*(val-1)/2;
-            mp[pt] = sum;
+            long long hl = val*(val-1)/2;
+            ans += hl*phline;
+            phline += hl;
         }
-        int ans=0;
-        int sum=0;
-        for(auto& [pt,val] : mp){
-            ans = (ans + (sum*val)%mod)%mod;
-            sum += val;
-        }
-        return ans;
+        return ans%mod;
     }
 };
