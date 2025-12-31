@@ -24,8 +24,7 @@ public :
 class Solution {
 public:
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-        int n = row*col + 2;
-        int b = row*col+1;
+        int n = row*col;
         vector<vector<int>> grid(row, vector<int> (col,1));
         dsu d(n);
         int dir[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -51,10 +50,10 @@ public:
             }
 
             if(r == row-1){
-                d.unite(b,id);
+                d.unite(n-1,id);
             }
 
-            if(d.findPar(0) == d.findPar(b)){
+            if(d.findPar(0) == d.findPar(n-1)){
                 return i;
             }
         }
