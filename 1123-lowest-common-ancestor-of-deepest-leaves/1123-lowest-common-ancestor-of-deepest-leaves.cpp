@@ -12,26 +12,26 @@
 class Solution {
 public:
     int maxd = 0;
-    unordered_map<int,int> mp;
-    void depth(TreeNode* root, int currd){
+    int depth(TreeNode* root){
         if(root == NULL){
-            return;
+            return 0;
         }
-        maxd = max(maxd,currd);
-        mp[root->val] = currd;
+        // maxd = max(maxd,currd);
+        // mp[root->val] = currd;
 
-        depth(root->left,currd+1);
-        depth(root->right,currd+1);
+        int l = depth(root->left);
+        int r = depth(root->right);
 
+        return max(l,r)+1;
     }
 
-    TreeNode* lca(TreeNode* root){
-        if(root == NULL || mp[root->val] == maxd){
+    TreeNode* lca(TreeNode* root, int currd){
+        if(root == NULL || currd == maxd){
             return root;
         }
 
-        TreeNode* l = lca(root->left);
-        TreeNode* r = lca(root->right);
+        TreeNode* l = lca(root->left,currd+1);
+        TreeNode* r = lca(root->right,currd+1);
 
         if(l && r) return root;
 
@@ -39,7 +39,7 @@ public:
     }
 
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        depth(root,0);
-        return lca(root);
+        maxd = depth(root);
+        return lca(root,1);
     }
 };
